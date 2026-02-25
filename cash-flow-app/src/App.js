@@ -138,7 +138,7 @@ function App() {
   };
 
   return (
-    <div style={{ padding: '40px 20px', maxWidth: '1300px', margin: '0 auto', fontFamily: 'sans-serif', color: '#333', backgroundColor: '#fdfdfd' }}>
+    <div className="App"　style={{ padding: '40px 20px', maxWidth: '1300px', margin: '0 auto', fontFamily: 'sans-serif', color: '#333', backgroundColor: '#fdfdfd' }}>
       <style>{`
         .day-cell-container { position: relative; width: 100%; height: 100%; }
         .custom-tooltip {
@@ -153,15 +153,37 @@ function App() {
       `}</style>
 
       <header style={{ textAlign: 'center', marginBottom: '40px' }}>
-        <h1 style={{ fontSize: '42px', margin: '0', background: 'linear-gradient(45deg, #1a73e8 30%, #64b5f6 90%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', fontWeight: '900' }}>
-          未来の残高カレンダー
+        <h1 style={{ 
+          fontSize: 'clamp(28px, 5vw, 42px)', // 画面幅に合わせて自動でサイズ調整
+          margin: '0', 
+          background: 'linear-gradient(45deg, #1a73e8 30%, #64b5f6 90%)', 
+          WebkitBackgroundClip: 'text', 
+          WebkitTextFillColor: 'transparent', 
+          fontWeight: '900', 
+          lineHeight: '1.2',
+          wordBreak: 'keep-all', // 単語の途中で変に切れないようにする
+          overflowWrap: 'anywhere' 
+        }}>
+          未来の残高<br className="sp-only" />カレンダー
         </h1>
+        <p style={{ 
+          fontSize: 'clamp(14px, 2vw, 16px)', 
+          lineHeight: '1.6', 
+          color: '#666', 
+          marginTop: '15px', 
+          padding: '0 10px',
+          fontWeight: '500' 
+        }}>
+          「来週の引き落とし、残高足りるかな？」<br />
+          「バイト代、いつどのくらい入るっけ？」<br />
+          そんなときはこのカレンダー。今の残高と未来の引き落とし・振込予定を入力すれば、ぱぱっと計算できます！
+        </p>
       </header>
 
       {/* 口座登録 */}
       <div style={{ padding: '25px', background: '#f0f4f8', borderRadius: '16px', marginBottom: '20px' }}>
         <h3 style={{ marginTop: 0, borderLeft: '5px solid #2196f3', paddingLeft: '10px' }}>口座登録</h3>
-        <form onSubmit={handleAccountSubmit} style={{ display: 'flex', gap: '10px' }}>
+        <form onSubmit={handleAccountSubmit} className="input-form" style={{ gap: '10px' }}>
           <input style={inputStyle} type="text" placeholder="口座名" value={newAccountName} onChange={(e) => setNewAccountName(e.target.value)} required />
           <input style={inputStyle} type="number" placeholder="初期残高" value={initialBalanceInput} onChange={(e) => setInitialBalanceInput(e.target.value)} />
           <button type="submit" style={{ ...buttonStyle, background: '#333', color: 'white' }}>{editingAccountId ? '更新' : '登録'}</button>
@@ -179,7 +201,7 @@ function App() {
       {/* 予定追加 */}
       <div style={{ padding: '25px', background: editingId ? '#fff3cd' : '#fff', borderRadius: '16px', boxShadow: '0 4px 20px rgba(0,0,0,0.08)', marginBottom: '30px' }}>
         <h3 style={{ marginTop: 0, borderLeft: '5px solid #ffc107', paddingLeft: '10px' }}>{editingId ? '予定を編集' : '予定追加'}</h3>
-        <form onSubmit={handleSubmit} style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+        <form onSubmit={handleSubmit} className="input-form" style={{ gap: '10px' }}>
           <input style={inputStyle} type="text" placeholder="項目" value={title} onChange={(e) => setTitle(e.target.value)} required />
           <input style={inputStyle} type="number" placeholder="金額" value={amount} onChange={(e) => setAmount(e.target.value)} required />
           <input style={inputStyle} type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
@@ -192,7 +214,7 @@ function App() {
         </form>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '2.5fr 1fr', gap: '30px' }}>
+      <div className="main-container" style={{ gap: '30px' }}>
         {/* 左側：カレンダー */}
         <div>
           <div style={{ marginBottom: '15px', display: 'flex', justifyContent: 'flex-end' }}>

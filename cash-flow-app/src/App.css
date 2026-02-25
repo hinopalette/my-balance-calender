@@ -1,38 +1,103 @@
+/* --- ベース設定 --- */
+body {
+  margin: 0;
+  background-color: #fdfdfd;
+}
+
+/* App.jsの134行目辺りで className="App" を追加してください */
 .App {
-  text-align: center;
+  transition: all 0.3s ease;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* --- レイアウト：PCでは横並び --- */
+.main-container {
+  display: grid;
+  grid-template-columns: 2.5fr 1fr; /* カレンダーを広く、リストを右に */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+/* --- モバイル対応 (画面幅900px以下) --- */
+@media screen and (max-width: 900px) {
+  /* 全体の余白をスマホ用にスリム化 */
+  .App {
+    padding: 20px 10px !important;
+  }
+
+  /* タイトルをスマホで適切なサイズに */
+  header h1 {
+    font-size: 28px !important;
+  }
+
+  /* レイアウトを縦並びに強制変更 */
+  .main-container {
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: none !important;
+    gap: 20px !important;
+  }
+
+  /* フォーム（口座登録・予定追加）を縦に並べる */
+  form {
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+
+  /* 入力欄とボタンを横幅いっぱいにする */
+  input, select, button {
+    width: 100% !important;
+    margin: 0 !important;
+    flex: none !important;
+  }
+
+  /* カレンダーの背景部分 */
+  .fc {
+    font-size: 0.8em; /* 文字を少し小さくして収まりを良くする */
+  }
+
+  /* ツールチップが画面からはみ出さないように調整 */
+  .custom-tooltip {
+    width: 160px !important;
+    left: 50% !important;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* カレンダー内のイベントの見た目調整 */
+.plan-event {
+  cursor: pointer;
+  border-radius: 4px !important;
+  padding: 1px 4px !important;
 }
 
-.App-link {
-  color: #61dafb;
+.balance-event {
+  pointer-events: none; /* 残高表示はクリックの邪魔をしない */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+/* --- タイトルの表示切り替え --- */
+.title-sp {
+  display: none; /* 基本は隠す */
+}
+
+.title-pc {
+  display: inline; /* PCではこちらを表示 */
+  font-size: 42px;
+}
+
+/* キャッチコピーのスタイル */
+.catch-phrase {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #666;
+  margin-top: 15px;
+  font-weight: 500;
+}
+
+/* PCでは改行を無視する */
+.sp-only {
+  display: none;
+}
+
+/* 画面幅が900px以下のときだけ改行を有効にする */
+@media screen and (max-width: 900px) {
+  .sp-only {
+    display: inline;
   }
 }
